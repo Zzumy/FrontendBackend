@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*'],
+    'allowed_origins' => ['https://www.thunderclient.com','http://localhost:5502', 'http://127.0.0.1:5502'],
 
     'allowed_origins_patterns' => [],
 

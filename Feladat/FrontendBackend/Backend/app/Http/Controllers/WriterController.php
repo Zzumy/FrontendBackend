@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Writer;
 use Illuminate\Http\Request;
 
 class WriterController extends Controller
@@ -20,23 +21,26 @@ class WriterController extends Controller
     public function store(Request $request)
     {
         $writer = new Writer();
-        $writer->author = $request->author;
-        $writer->title = $request->title;
-
+        $writer->vnev = $request->vnev;
+        $writer->knev = $request->knev;
+        $writer->szul = $request->szul;
         $writer->save();
+        return Writers()::find($record->id);
     }
 
     public function update(Request $request, $id)
     {
         $writer = Writer::find($id);
-        $writer->author = $request->author;
-        $writer->title = $request->title;
-
+        $writer->vnev = $request->vnev;
+        $writer->knev = $request->knev;
+        $writer->szul = $request->szul;
         $writer->save();
+        return response()->json(['message' => 'Sikeres törlés!'], 201);
     }
 
     public function destroy($id)
     {
-        Writer::find($id)->delete();
+        $writer = Writers::find($id)->delete();
+        return response()->json(['message' => 'Sikeres törlés!'], 201);
     }
 }

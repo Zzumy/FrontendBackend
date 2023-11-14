@@ -10,7 +10,7 @@ export class Controller{
         this.LEIRO = this.formModell.getRule()
         new FormView($("#form"), this.LEIRO);
         this.dataService.getAxiosData(
-          "http://localhost:8000/api/tasks",
+          "http://localhost:5502",
           this.display
         );
     }
