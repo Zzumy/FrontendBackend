@@ -1,13 +1,14 @@
-export class NumberFormView {
+export default class FormNumberView {
     #key = "";
-    #rule = {};
+    #leiro = {};
     #value = "";
     #valid = true;
-    constructor(key, rule, formElem) {
+    constructor(key, leiro, formElem) {
         this.#key = key;
-        this.#rule = rule;
+        this.#leiro = leiro;
         this.formElem = formElem;
         this.#numberElem();
+
         this.inputElem = $(`#${this.#key}`);
         this.validElem = this.formElem
             .children("div:last-child")
@@ -15,38 +16,42 @@ export class NumberFormView {
         this.invalidElem = this.formElem
             .children("div:last-child")
             .children(".invalid");
-        this.#value = this.inputElem.val();
-        console.log(this.#value);
-        if (this.#value <= 2023 && this.#value >= 1900) {
+        this.inputElem.on("change", () => {
+            this.#value = this.inputElem.val();
+            console.log(this.#value);
             this.#valid = true;
-        } else {
-            this.#valid = false;
-        }
+        });
     }
+
     get value() {
         return this.#value;
     }
+
     get valid() {
         return this.#valid;
     }
+
     get key() {
         return this.#key;
     }
+
     #numberElem() {
         let txt = `
           <div class="mb-3 mt-3">
               <label for="${this.#key}" 
               class="form-label">
-              ${this.#rule.megjelenes}
+              ${this.#leiro.megjelenes}
               </label>
-              <input type="${this.#rule.tipus}" class="form-control" 
+          
+              <input type="${this.#leiro.tipus}" class="form-control" 
               id="${this.#key}" 
               name="${this.#key}" 
-              min="${this.#rule.regex.min}"
-              max="${this.#rule.regex.max}"
-              value="${this.#rule.value}">
+              min="${this.#leiro.regex.min}"
+              max="${this.#leiro.regex.max}"
+              value="${this.#leiro.value}">
           </div>
           `;
+
         this.formElem.append(txt);
     }
 }

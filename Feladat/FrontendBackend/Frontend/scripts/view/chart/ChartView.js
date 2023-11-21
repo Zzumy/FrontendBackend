@@ -1,33 +1,32 @@
-import {ChartViewLine} from "./MegjelenitSor.js";
+import { ChartViewLine } from "./ChartViewLine.js";
 
-export class Megjelenit {
+export class ChartView {
     #list = [];
-    #leiro = [];
-    constructor(list, szuloElem, leiro) {
-        this.#leiro = leiro;
+    #rule = [];
+    constructor(list, parent, rule) {
+        this.#rule = rule;
         this.#list = list;
-        szuloElem.append('<table class="table table-bordered table-striped ">');
-        this.tablaElem = szuloElem.children("table");
+        parent.append('<table class="table table-bordered table-striped ">');
+        this.tablaElem = parent.children("table");
         console.log(this.tablaElem);
         this.sor();
         this.tablazatbaIr();
     }
-
+    setSor(sor) {
+        this.tablaElem.html(sor);
+    }
     sor() {
         let txt = "";
-
         txt += "<tr>";
-        for (const key in this.#leiro) {
-            txt += `<th>${this.#leiro[key].megjelenes}</th>`;
+        for (const key in this.#rule) {
+            txt += `<th>${this.#rule[key].megjelenes}</th>`;
         }
         txt += "</tr>";
-
         this.tablaElem.append(txt);
     }
-
     tablazatbaIr() {
         this.#list.forEach((elem, index) => {
-            new MegjelenitSor(elem, this.tablaElem, index);
+            new ChartViewLine(elem, this.tablaElem, index);
         });
     }
 }

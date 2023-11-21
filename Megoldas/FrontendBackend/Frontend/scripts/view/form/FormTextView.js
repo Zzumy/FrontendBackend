@@ -1,24 +1,26 @@
-export class TextFormView {
+export default class FormTextView {
     #key = "";
-    #rule = {};
+    #leiro = {};
     #value = "";
     #valid = true;
-    constructor(key, rule, formElem) {
+    constructor(key, leiro, formElem) {
         this.#key = key;
-        this.#rule = rule;
+        this.#leiro = leiro;
         this.formElem = formElem;
         this.#textElem();
+
         this.inputElem = $(`#${this.#key}`);
         this.validElem = this.formElem
             .children("div:last-child")
             .children(".valid");
         this.invalidElem = this.formElem
             .children("div:last-child")
-            .children(".invalid");
+            .children(".invalid"); //más megoldás: this.invalidElem = $(".invalid:last")
         this.inputElem.on("keyup", () => {
             this.#value = this.inputElem.val();
-            let reg = this.#rule.regex;
+            let reg = this.#leiro.regex;
             let regObj = new RegExp(reg);
+
             if (regObj.test(this.#value)) {
                 this.#valid = true;
                 this.validElem.removeClass("elrejt");
@@ -30,34 +32,39 @@ export class TextFormView {
             }
         });
     }
+
     get value() {
         return this.#value;
     }
+
     get valid() {
         return this.#valid;
     }
+
     get key() {
         return this.#key;
     }
+
     #textElem() {
         let txt = `
           <div class="mb-3 mt-3">
               <label for="${this.#key}" 
               class="form-label">
-              ${this.#rule.megjelenes}
+              ${this.#leiro.megjelenes}
               </label>
               
-              <input type="${this.#rule.tipus}" class="form-control" 
+              <input type="${this.#leiro.tipus}" class="form-control" 
               id="${this.#key}" 
               name="${this.#key}"
-              placeholder="${this.#rule.placeholder}"  
-              patter="${this.#rule.regex}"
-              value="${this.#rule.value}">
+              placeholder="${this.#leiro.placeholder}"  
+              patter="${this.#leiro.regex}"
+              value="${this.#leiro.value}">
               
               <div class="valid elrejt">OK</div>
-              <div class="invalid elrejt">${this.#rule.validalas}</div>
+              <div class="invalid elrejt">${this.#leiro.validalas}</div>
           </div>
           `;
+
         this.formElem.append(txt);
     }
 }

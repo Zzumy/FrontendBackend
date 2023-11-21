@@ -1,18 +1,16 @@
 * {
     box-sizing: border-box;
 }
-
 main {
     width: 50%;
     margin: auto;
 }
-
-.valid{
-    color:green;
+.valid {
+    color: green;
 }
-.invalid{
-    color:red
+.invalid {
+    color: red;
 }
-.elrejt{
+.elrejt {
     display: none;
 }

@@ -1,18 +1,17 @@
-import { TextFormView } from "./TextFormView.js";
-import { NumberFormView } from "./NumberFormView.js";
+import FormTextView from "./FormTextView.js";
+import FormNumberView from "./FormNumberView.js";
 
-export class FormView {
-    #rule = {};
+export default class FormView{
+    #leiro = {};
     #urlapElemLista = [];
     #urlapNumberLista = [];
     #osszesElemValidE = true;
     #urlapAdat = {};
-    constructor(szuloElem, rule) {
+    constructor(szuloElem, leiro) {
         this.szuloElem = szuloElem;
-        this.#rule = rule;
+        this.#leiro = leiro;
         this.szuloElem.append("<form>");
         this.formElem = this.szuloElem.children("form");
-
         this.#urlapOsszerak();
         this.submitElem = $("#submit");
         this.submitElem.on("click", (event) => {
@@ -32,22 +31,24 @@ export class FormView {
             this.#esemenyTrigger("betesz");
         });
     }
-
     get urlapAdat() {
         return this.#urlapAdat;
     }
-
     #urlapOsszerak() {
-        for (const key in this.#rule) {
-            switch (this.#rule[key].tipus) {
+        for (const key in this.#leiro) {
+            switch (this.#leiro[key].tipus) {
                 case "text":
                     this.#urlapElemLista.push(
-                        new TextFormView(key, this.#rule[key], this.formElem)
+                        new FormTextView(key, this.#leiro[key], this.formElem)
                     );
                     break;
-                case "number":
+                case "date":
                     this.#urlapElemLista.push(
-                        new NumberFormView(key, this.#rule[key], this.formElem)
+                        new FormNumberView(
+                            key,
+                            this.#leiro[key],
+                            this.formElem
+                        )
                     );
                     break;
                 default:
@@ -56,7 +57,6 @@ export class FormView {
         let txt = "<input type='submit' id='submit' value='OK'>";
         this.formElem.append(txt);
     }
-
     #esemenyTrigger(esemeny) {
         const E = new CustomEvent(esemeny, { detail: this.#urlapAdat });
         window.dispatchEvent(E);

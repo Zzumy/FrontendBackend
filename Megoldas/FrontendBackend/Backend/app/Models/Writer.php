@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class WriterModel extends Model
+class Writer extends Model
 {
     use HasFactory;
 
     protected $primarykey = 'id';
 
     protected $fillable = [
-        'vnev',
+        'nev',
         'szul'
     ];
 }

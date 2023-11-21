@@ -9,7 +9,7 @@ class WriterController extends Controller
 {
     public function index()
     {
-        return Writer::all();
+        return response()->json(Writer::all());
     }
 
     public function show($id)
@@ -25,7 +25,6 @@ class WriterController extends Controller
         $writer->knev = $request->knev;
         $writer->szul = $request->szul;
         $writer->save();
-        return Writers()::find($record->id);
     }
 
     public function update(Request $request, $id)

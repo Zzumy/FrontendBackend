@@ -2,7 +2,7 @@ export class DataService {
     constructor() {
         axios.defaults.baseURL = "http://localhost:5502";
     }
-    getAxiosData(url, callback) {
+    getAxiosData(url, callback, rule) {
         console.log(url);
         axios
             .get(url)
@@ -13,7 +13,7 @@ export class DataService {
                 console.log("statusText", response.statusText);
                 console.log("headers", response.headers);
                 console.log("config", response.config);
-                callback(response.data);
+                callback(response.data, rule);
             })
             .catch(function (error) {
                 console.log(error);
